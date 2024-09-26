@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Price Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Laptop Price Predictor</h1>
+        <form action="/" method="POST">
+            <div class="form-group">
+                <label for="company">Manufacturer:</label>
+                <select name="company" id="company" class="form-control">
+                    {% for company in companies %}
+                        <option value="{{ company }}">{{ company }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select name="category" id="category" class="form-control">
+                    {% for category in categories %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cpu">CPU:</label>
+                <select name="cpu" id="cpu" class="form-control">
+                    {% for cpu in cpus %}
+                        <option value="{{ cpu }}">{{ cpu }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ram">RAM (in GB):</label>
+                <select id="ram" name="ram" class="form-control">
+                    <option value="2">2 GB</option>
+                    <option value="4">4 GB</option>
+                    <option value="8">8 GB</option>
+                    <option value="16">16 GB</option>
+                    <option value="32">32 GB</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="weight">Weight (in kg):</label>
+                <input type="number" id="weight" name="weight" step="0.01" placeholder="0.00" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="gpu">GPU Manufacturer:</label>
+                <select name="gpu" id="gpu" class="form-control">
+                    {% for gpu in gpus %}
+                        <option value="{{ gpu }}">{{ gpu }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="screen_size">Screen Size (in inches):</label>
+                <input type="number" id="screen_size" name="screen_size" step="0.1" placeholder="0.0" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="res_width">Horizontal Resolution:</label>
+                <input type="number" id="res_width" name="res_width" step="1" placeholder="0" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="res_height">Vertical Resolution:</label>
+                <input type="number" id="res_height" name="res_height" step="1" placeholder="0" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="touchscreen">Touchscreen:</label>
+                <select id="touchscreen" name="touchscreen" class="form-control">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ips">IPS Panel:</label>
+                <select id="ips" name="ips" class="form-control">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="os">Operating System:</label>
+                <select name="os" id="os" class="form-control">
+                    {% for os in oss %}
+                        <option value="{{ os }}">{{ os }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="hdd">HDD Storage (in GB):</label>
+                <select id="hdd" name="hdd" class="form-control">
+                    <option value="0">0</option>
+                    <option value="128">128</option>
+                    <option value="256">256</option>
+                    <option value="512">512</option>
+                    <option value="768">768</option>
+                    <option value="1024">1024</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ssd">SSD Storage (in GB):</label>
+                <select id="ssd" name="ssd" class="form-control">
+                    <option value="0">0</option>
+                    <option value="128">128</option>
+                    <option value="256">256</option>
+                    <option value="512">512</option>
+                    <option value="768">768</option>
+                    <option value="1024">1024</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Predict Price" class="btn btn-primary btn-block">
+            </div>
+        </form>
+
+        {% if predicted_price %}
+            <h2 class="text-center">The predicted price of this Laptop configuration is Rs.{{ predicted_price }}</h2>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
