@@ -10,10 +10,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="form-container">
-        <h1>Laptop Price Predictor</h1>
-        <form action="/" method="POST">
-            <div class="form-group">
+    <nav class="navbar bg-body-tertiary" >
+        <div class ="form-container mx-auto p-2" style="border: 0cm;width: 300px;">
+        <a class="navbar-brand" href = "index.html">Laptop Price Predictor<a>
+        </div>
+    </nav>
+    <div class="container mt-5 mb-5">
+        <form class = "row g-3" action="/" method="POST">
+            <div class="form-group col-md-6" >
                 <label for="company">Manufacturer:</label>
                 <select name="company" id="company" class="form-control">
                     {% for company in companies %}
@@ -22,7 +26,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="category">Category:</label>
                 <select name="category" id="category" class="form-control">
                     {% for category in categories %}
@@ -31,7 +35,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="cpu">CPU:</label>
                 <select name="cpu" id="cpu" class="form-control">
                     {% for cpu in cpus %}
@@ -40,7 +44,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-4" >
                 <label for="ram">RAM (in GB):</label>
                 <select id="ram" name="ram" class="form-control">
                     <option value="2">2 GB</option>
@@ -50,13 +54,8 @@
                     <option value="32">32 GB</option>
                 </select>
             </div>
-
-            <div class="form-group">
-                <label for="weight">Weight (in kg):</label>
-                <input type="number" id="weight" name="weight" step="0.01" placeholder="0.00" class="form-control">
-            </div>
-
-            <div class="form-group">
+            
+            <div class="form-group col-md-4">
                 <label for="gpu">GPU Manufacturer:</label>
                 <select name="gpu" id="gpu" class="form-control">
                     {% for gpu in gpus %}
@@ -65,22 +64,29 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-2" >
+                <label for="weight">Weight (in kg):</label>
+                <input type="number" id="weight" name="weight" step="0.01" placeholder="0.00" class="form-control" required>
+            </div>
+
+            
+
+            <div class="form-group col-md-2">
                 <label for="screen_size">Screen Size (in inches):</label>
-                <input type="number" id="screen_size" name="screen_size" step="0.1" placeholder="0.0" class="form-control">
+                <input type="number" id="screen_size" name="screen_size" step="0.1" placeholder="0.0" class="form-control" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="res_width">Horizontal Resolution:</label>
-                <input type="number" id="res_width" name="res_width" step="1" placeholder="0" class="form-control">
+                <input type="number" id="res_width" name="res_width" step="1" placeholder="0" class="form-control" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="res_height">Vertical Resolution:</label>
-                <input type="number" id="res_height" name="res_height" step="1" placeholder="0" class="form-control">
+                <input type="number" id="res_height" name="res_height" step="1" placeholder="0" class="form-control" required>
             </div>
-
-            <div class="form-group">
+            
+            <div class="form-group col-md-2">
                 <label for="touchscreen">Touchscreen:</label>
                 <select id="touchscreen" name="touchscreen" class="form-control">
                     <option value="Yes">Yes</option>
@@ -88,7 +94,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="ips">IPS Panel:</label>
                 <select id="ips" name="ips" class="form-control">
                     <option value="Yes">Yes</option>
@@ -96,7 +102,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="os">Operating System:</label>
                 <select name="os" id="os" class="form-control">
                     {% for os in oss %}
@@ -105,7 +111,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-4" >
                 <label for="hdd">HDD Storage (in GB):</label>
                 <select id="hdd" name="hdd" class="form-control">
                     <option value="0">0</option>
@@ -117,7 +123,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-4" >
                 <label for="ssd">SSD Storage (in GB):</label>
                 <select id="ssd" name="ssd" class="form-control">
                     <option value="0">0</option>
@@ -129,19 +135,40 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mx-auto p-2" style = "width: 250px;">
                 <input type="submit" value="Predict Price" class="btn btn-primary btn-block">
             </div>
         </form>
-
+    </div>
         {% if predicted_price %}
             <h2 class="text-center">The predicted price of this Laptop configuration is Rs.{{ predicted_price }}</h2>
         {% endif %}
-    </div>
+    
 
     <!-- Bootstrap JS and dependencies (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            let isValid = true;
+            const inputs = document.querySelectorAll('input, select');
+    
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+    
+            if (!isValid) {
+                e.preventDefault(); // Prevent form submission if validation fails
+                alert('Please fill out all fields');
+            }
+        });
+    </script>
+    
 </body>
 </html>

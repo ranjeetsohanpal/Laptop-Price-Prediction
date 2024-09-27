@@ -19,10 +19,10 @@ h1 {
 }
 
 .form-container {
-    max-width: 400px; /* Set a maximum width for the form */
-    margin: auto; /* Center the form */
+    max-width: 100px; /* Set a maximum width for the form */
+    margin: 0 auto; /* Center the form */
     background-color: #282828; /* Dark background for form */
-    padding: 20px; /* Padding inside the form */
+    padding: 10px; /* Padding inside the form */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow */
 }
@@ -37,7 +37,7 @@ label {
 
 .form-control {
     width: 90%; /* Set a width for the inputs */
-    max-width: 200px; /* Maximum width for inputs */
+    max-width: 100px; /* Maximum width for inputs */
     margin: 10px auto; /* Center the input */
     background-color: #404040; /* Dark input background */
     color: #ffffff; /* White text for inputs */
@@ -48,4 +48,8 @@ label {
     background-color: #505050; /* Darker background on focus */
     border-color: #777; /* Lighter border on focus */
     outline: none; /* Remove default outline */
+}
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
 }
