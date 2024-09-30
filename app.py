@@ -12,6 +12,13 @@ with open('train_df.pkl', 'rb') as f:
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+    # GET request
+    companies = df['Manufacturer'].unique()
+    categories = df['Category'].unique()
+    cpus = df['cpu_brand'].unique()
+    gpus = df['gpu_brand'].unique()
+    oss = df['os'].unique()
     if request.method == 'POST':
         # Extract features from form input
         company = request.form['company']
@@ -38,14 +45,13 @@ def index():
         # Predict price
         predicted_price = int(np.exp(model.predict(features)[0]))
 
-        return render_template('index.html', predicted_price=predicted_price)
+        return render_template('index.html', predicted_price=predicted_price, companies=companies, categories=categories, 
+                               cpus=cpus, gpus=gpus, oss=oss,selected_company=company, selected_category=category, selected_cpu=cpu,
+                               selected_gpu=gpu, selected_os=os,selected_ram = ram,selected_wt = weight,selected_touch = touchscreen,selected_ips = ips
+                               ,selected_ss = screen_size,selected_res_ht = res_height,selected_res_wd = res_width,selected_hdd = hdd,
+                               selected_ssd = ssd)
     else:
-        # GET request
-        companies = df['Manufacturer'].unique()
-        categories = df['Category'].unique()
-        cpus = df['cpu_brand'].unique()
-        gpus = df['gpu_brand'].unique()
-        oss = df['os'].unique()
+        
         return render_template('index.html', companies=companies, categories=categories, cpus=cpus, gpus=gpus, oss=oss)
 
 if __name__ == '__main__':
