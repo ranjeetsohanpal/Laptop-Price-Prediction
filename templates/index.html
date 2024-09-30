@@ -8,26 +8,35 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            background-color: #28a745; /* The green color used in .bg-success */
+            background-color: #165b26; /* The green color used in .bg-success */
             color: azure; 
         }
     </style>
 </head>
 <body>
-    <nav class="navbar" style="border-bottom: 2px solid #006400; background-color: transparent; font-family: 'Times New Roman', Times, serif; font-size: xx-large;">
-        <div class="form-container mx-auto p-2" style="border: 10px; width: 300px;">
-            <a class="navbar-brand" href="index.html" style="color: #006400;">Laptop Price Predictor</a>
+    <nav class="navbar" style="border-bottom: 2px solid #fbfcfb; background-color: transparent; font-family: 'Times New Roman', Times, serif; font-size: xx-large; position: relative;">
+        <div class="form-container mx-auto p-2" style="border: 10px; width: auto;">
+            <a class="navbar-brand text-center" href="index.html" style="color: #f7f7f7; font-size: 3rem;">Laptop Price Predictor</a>
         </div>
-    </nav>    
+    
+        <!-- GitHub link on the right side -->
+        <div class="p-2" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);">
+            <a href="https://github.com/ranjeetsohanpal" target="_blank" style="color: #f7f7f7;">
+                <i class="fab fa-github" style="font-size: 2rem;"></i> <!-- GitHub Icon -->
+            </a>
+        </div>
+    </nav>
+     
     <div class="container mt-5 mb-5">
         <form class = "row g-3" action="/" method="POST">
             <div class="form-group col-md-6" >
                 <label for="company">Manufacturer:</label>
                 <select name="company" id="company" class="form-control">
                     {% for company in companies %}
-                        <option value="{{ company }}">{{ company }}</option>
+                        <option value="{{ company }}" {% if company == selected_company %}selected{% endif %}>{{ company }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -36,7 +45,7 @@
                 <label for="category">Category:</label>
                 <select name="category" id="category" class="form-control">
                     {% for category in categories %}
-                        <option value="{{ category }}">{{ category }}</option>
+                        <option value="{{ category }}"{% if category == selected_category %}selected{% endif %}>{{ category }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -45,19 +54,19 @@
                 <label for="cpu">CPU:</label>
                 <select name="cpu" id="cpu" class="form-control">
                     {% for cpu in cpus %}
-                        <option value="{{ cpu }}">{{ cpu }}</option>
+                        <option value="{{ cpu }}"{% if cpu == selected_cpu %}selected{% endif %}>{{ cpu }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <div class="form-group col-md-4" >
+            <div class="form-group col-md-4">
                 <label for="ram">RAM (in GB):</label>
                 <select id="ram" name="ram" class="form-control">
-                    <option value="2">2 GB</option>
-                    <option value="4">4 GB</option>
-                    <option value="8">8 GB</option>
-                    <option value="16">16 GB</option>
-                    <option value="32">32 GB</option>
+                    <option value="2" {% if selected_ram == 2 %}selected{% endif %}>2 GB</option>
+                    <option value="4" {% if selected_ram == 4 %}selected{% endif %}>4 GB</option>
+                    <option value="8" {% if selected_ram == 8 %}selected{% endif %}>8 GB</option>
+                    <option value="16" {% if selected_ram == 16 %}selected{% endif %}>16 GB</option>
+                    <option value="32" {% if selected_ram == 32 %}selected{% endif %}>32 GB</option>
                 </select>
             </div>
             
@@ -65,46 +74,51 @@
                 <label for="gpu">GPU Manufacturer:</label>
                 <select name="gpu" id="gpu" class="form-control">
                     {% for gpu in gpus %}
-                        <option value="{{ gpu }}">{{ gpu }}</option>
+                        <option value="{{ gpu }}"{% if gpu == selected_gpu %}selected{% endif %}>{{ gpu }}</option>
                     {% endfor %}
                 </select>
             </div>
 
             <div class="form-group col-md-2" >
                 <label for="weight">Weight (in kg):</label>
-                <input type="number" id="weight" name="weight" step="0.01" placeholder="0.00" class="form-control" required>
+                <input type="number" id="weight" name="weight" step="0.01" placeholder="0.00" class="form-control" 
+                value="{{ selected_wt if selected_wt else '' }}"required>
             </div>
 
             
 
             <div class="form-group col-md-2">
                 <label for="screen_size">Screen Size (in inches):</label>
-                <input type="number" id="screen_size" name="screen_size" step="0.1" placeholder="0.0" class="form-control" required>
+                <input type="number" id="screen_size" name="screen_size" step="0.1" placeholder="0.0" class="form-control" 
+                value="{{ selected_ss if selected_ss else '' }}"required>
             </div>
 
             <div class="form-group col-md-2">
                 <label for="res_width">Horizontal Resolution:</label>
-                <input type="number" id="res_width" name="res_width" step="1" placeholder="0" class="form-control" required>
+                <input type="number" id="res_width" name="res_width" step="1" placeholder="0" class="form-control"
+                value="{{ selected_res_wd if selected_res_wd else '' }}" required>
             </div>
 
             <div class="form-group col-md-2">
                 <label for="res_height">Vertical Resolution:</label>
-                <input type="number" id="res_height" name="res_height" step="1" placeholder="0" class="form-control" required>
+                <input type="number" id="res_height" name="res_height" step="1" placeholder="0" class="form-control" 
+                value="{{ selected_res_ht if selected_res_ht else '' }}"required>
             </div>
             
             <div class="form-group col-md-2">
                 <label for="touchscreen">Touchscreen:</label>
                 <select id="touchscreen" name="touchscreen" class="form-control">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                    <option value="Yes" {% if selected_touch == 1 %}selected{% endif %}>Yes</option>
+                    <option value="No" {% if selected_touch == 0 %}selected{% endif %}>No</option>
                 </select>
             </div>
+            
 
             <div class="form-group col-md-2">
                 <label for="ips">IPS Panel:</label>
                 <select id="ips" name="ips" class="form-control">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                    <option value="Yes"{% if selected_ips == 1 %}selected{% endif %}>Yes</option>
+                    <option value="No"{% if selected_ips == 0 %}selected{% endif %}>No</option>
                 </select>
             </div>
 
@@ -112,7 +126,7 @@
                 <label for="os">Operating System:</label>
                 <select name="os" id="os" class="form-control">
                     {% for os in oss %}
-                        <option value="{{ os }}">{{ os }}</option>
+                        <option value="{{ os }}"{% if os == selected_os %}selected{% endif %}>{{ os }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -120,24 +134,22 @@
             <div class="form-group col-md-4" >
                 <label for="hdd">HDD Storage (in GB):</label>
                 <select id="hdd" name="hdd" class="form-control">
-                    <option value="0">0</option>
-                    <option value="128">128</option>
-                    <option value="256">256</option>
-                    <option value="512">512</option>
-                    <option value="768">768</option>
-                    <option value="1024">1024</option>
+                    <option value="0"{% if selected_hdd == 0 %}selected{% endif %}>0</option>
+                    <option value="128"{% if selected_hdd == 128 %}selected{% endif %}>128</option>
+                    <option value="256"{% if selected_hdd == 256 %}selected{% endif %}>256</option>
+                    <option value="512"{% if selected_hdd == 512 %}selected{% endif %}>512</option>
+                    <option value="1024"{% if selected_hdd == 1024 %}selected{% endif %}>1024</option>
                 </select>
             </div>
 
             <div class="form-group col-md-4" >
                 <label for="ssd">SSD Storage (in GB):</label>
                 <select id="ssd" name="ssd" class="form-control">
-                    <option value="0">0</option>
-                    <option value="128">128</option>
-                    <option value="256">256</option>
-                    <option value="512">512</option>
-                    <option value="768">768</option>
-                    <option value="1024">1024</option>
+                    <option value="0"{% if selected_ssd == 0 %}selected{% endif %}>0</option>
+                    <option value="128"{% if selected_ssd == 128 %}selected{% endif %}>128</option>
+                    <option value="256"{% if selected_ssd == 256 %}selected{% endif %}>256</option>
+                    <option value="512"{% if selected_ssd == 512 %}selected{% endif %}>512</option>
+                    <option value="1024"{% if selected_ssd == 1024 %}selected{% endif %}>1024</option>
                 </select>
             </div>
 
@@ -159,7 +171,7 @@
         document.querySelector('form').addEventListener('submit', function(e) {
             let isValid = true;
             const inputs = document.querySelectorAll('input, select');
-    
+            
             inputs.forEach(input => {
                 if (!input.value) {
                     isValid = false;
@@ -168,13 +180,17 @@
                     input.classList.remove('is-invalid');
                 }
             });
-    
+            
             if (!isValid) {
                 e.preventDefault(); // Prevent form submission if validation fails
                 alert('Please fill out all fields');
             }
         });
+    
+        // Optionally, clear form fields after submission if desired
+        document.querySelector('form').reset();
     </script>
+    
     
 </body>
 </html>
