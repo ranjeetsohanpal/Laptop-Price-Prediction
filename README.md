@@ -35,7 +35,7 @@ The project includes:
 - **Data Visualization & Analysis:** Pandas, Matplotlib, Seaborn
 - **Deployment:** Flask app
 
-## Web-App Preview
+![Web Application Preview](Webapp_preview.png)
 
 
 ## Installation
